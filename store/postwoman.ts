@@ -1,4 +1,9 @@
+<<<<<<< HEAD:store/postwoman.js
 import Vue from "vue"
+=======
+import Vue from "vue";
+import { RequestState } from "./state";
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
 
 export const SETTINGS_KEYS = [
   /**
@@ -71,7 +76,28 @@ export const SETTINGS_KEYS = [
   "EXTENSIONS_ENABLED",
 ]
 
-export const state = () => ({
+export interface CollectionRequest extends RequestState {
+  name: string;
+}
+
+export interface CollectionFolder {
+  name: string;
+  requests: CollectionRequest[];
+}
+
+export interface Collection {
+    name: string;
+    folders: CollectionFolder[]; 
+    requests: CollectionRequest[];
+}
+export interface CollectionState {
+  settings: any;
+  collections: Collection[];
+  selectedRequest: RequestState | {};
+  editingRequest: RequestState | {};
+}
+
+export const state = () => (<CollectionState>{
   settings: {},
   collections: [
     {
@@ -92,9 +118,21 @@ export const state = () => ({
 })
 
 export const mutations = {
+<<<<<<< HEAD:store/postwoman.js
   applySetting({ settings }, setting) {
     if (setting === null || !(setting instanceof Array) || setting.length !== 2) {
       throw new Error("You must provide a setting (array in the form [key, value])")
+=======
+  applySetting({ settings }: { settings: any }, setting: any) {
+    if (
+      setting === null ||
+      !(setting instanceof Array) ||
+      setting.length !== 2
+    ) {
+      throw new Error(
+        "You must provide a setting (array in the form [key, value])"
+      );
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
     }
 
     const [key, value] = setting
@@ -181,12 +219,21 @@ export const mutations = {
     environments[environmentIndex] = environment
   },
 
+<<<<<<< HEAD:store/postwoman.js
   replaceCollections(state, collections) {
     state.collections = collections
   },
 
   importCollections(state, collections) {
     state.collections = [...state.collections, ...collections]
+=======
+  replaceCollections(state: CollectionState, collections: any[]) {
+    state.collections = collections;
+  },
+
+  importCollections(state: CollectionState, collections: any[]) {
+    state.collections = [...state.collections, ...collections];
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
 
     let index = 0
     for (let collection of collections) {
@@ -195,6 +242,7 @@ export const mutations = {
     }
   },
 
+<<<<<<< HEAD:store/postwoman.js
   addNewCollection({ collections }, collection) {
     const { name } = collection
     const duplicateCollection = collections.some(
@@ -204,6 +252,9 @@ export const mutations = {
       this.$toast.info("Duplicate collection")
       return
     }
+=======
+  addNewCollection({ collections }: { collections: Collection[] }, collection: Collection) {
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
     collections.push({
       name: "",
       folders: [],
@@ -212,6 +263,7 @@ export const mutations = {
     })
   },
 
+<<<<<<< HEAD:store/postwoman.js
   removeCollection({ collections }, payload) {
     const { collectionIndex } = payload
     collections.splice(collectionIndex, 1)
@@ -232,6 +284,20 @@ export const mutations = {
 
   addNewFolder({ collections }, payload) {
     const { collectionIndex, folder } = payload
+=======
+  removeCollection({ collections }: { collections: Collection[] }, payload: { collectionIndex: number }) {
+    const { collectionIndex } = payload;
+    collections.splice(collectionIndex, 1);
+  },
+
+  editCollection({ collections }: { collections: Collection[] }, payload: { collection: Collection, collectionIndex: number }) {
+    const { collection, collectionIndex } = payload;
+    collections[collectionIndex] = collection;
+  },
+
+  addNewFolder({ collections }: { collections: Collection[] }, payload: { collectionIndex: number, folder: any }) {
+    const { collectionIndex, folder } = payload;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
     collections[collectionIndex].folders.push({
       name: "",
       requests: [],
@@ -239,6 +305,7 @@ export const mutations = {
     })
   },
 
+<<<<<<< HEAD:store/postwoman.js
   editFolder({ collections }, payload) {
     const { collectionIndex, folder, folderIndex } = payload
     Vue.set(collections[collectionIndex].folders, folderIndex, folder)
@@ -251,6 +318,20 @@ export const mutations = {
 
   addRequest({ collections }, payload) {
     const { request } = payload
+=======
+  editFolder({ collections }: { collections: Collection[] }, payload: { collectionIndex: number, folder: any, folderIndex: number }) {
+    const { collectionIndex, folder, folderIndex } = payload;
+    Vue.set(collections[collectionIndex].folders, folderIndex, folder);
+  },
+
+  removeFolder({ collections }: { collections: Collection[] }, payload: { collectionIndex: number, folderIndex: number }) {
+    const { collectionIndex, folderIndex } = payload;
+    collections[collectionIndex].folders.splice(folderIndex, 1);
+  },
+
+  addRequest({ collections }: { collections: Collection[] }, payload: { request: any }) {
+    const { request } = payload;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
 
     // Request that is directly attached to collection
     if (request.folder === -1) {
@@ -261,7 +342,14 @@ export const mutations = {
     collections[request.collection].folders[request.folder].requests.push(request)
   },
 
-  editRequest({ collections }, payload) {
+  editRequest({ collections }: { collections: Collection[] }, payload: { 
+    requestOldCollectionIndex: number, 
+    requestOldFolderIndex: number, 
+    requestOldIndex: number,
+    requestNew: any,
+    requestNewCollectionIndex: number,
+    requestNewFolderIndex: number
+  }) {
     const {
       requestOldCollectionIndex,
       requestOldFolderIndex,
@@ -299,8 +387,18 @@ export const mutations = {
     }
   },
 
+<<<<<<< HEAD:store/postwoman.js
   saveRequestAs({ collections }, payload) {
     const { request, collectionIndex, folderIndex, requestIndex } = payload
+=======
+  saveRequestAs({ collections }: { collections: Collection[] }, payload: {
+    request: any;
+    collectionIndex: number;
+    folderIndex: number;
+    requestIndex: number;
+  }) {
+    const { request, collectionIndex, folderIndex, requestIndex } = payload;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
 
     const specifiedCollection = collectionIndex !== undefined
     const specifiedFolder = folderIndex !== undefined
@@ -322,15 +420,27 @@ export const mutations = {
     }
   },
 
+<<<<<<< HEAD:store/postwoman.js
   saveRequest({ collections }, payload) {
     const { request } = payload
+=======
+  saveRequest({ collections }: { collections: Collection[] }, payload: { request: any }) {
+    const { request } = payload;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
 
     // Remove the old request from collection
+    const folder =
+      request.hasOwnProperty("oldFolder") && request.oldFolder >= -1
+        ? request.oldFolder
+        : request.folder;
     if (request.hasOwnProperty("oldCollection") && request.oldCollection > -1) {
+<<<<<<< HEAD:store/postwoman.js
       const folder =
         request.hasOwnProperty("oldFolder") && request.oldFolder >= -1
           ? request.oldFolder
           : request.folder
+=======
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
       if (folder > -1) {
         collections[request.oldCollection].folders[folder].requests.splice(request.requestIndex, 1)
       } else {
@@ -356,8 +466,13 @@ export const mutations = {
     )
   },
 
+<<<<<<< HEAD:store/postwoman.js
   removeRequest({ collections }, payload) {
     const { collectionIndex, folderIndex, requestIndex } = payload
+=======
+  removeRequest({ collections }: { collections: Collection[] }, payload: { collectionIndex: number, folderIndex: number, requestIndex: number }) {
+    const { collectionIndex, folderIndex, requestIndex } = payload;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
 
     // Request that is directly attached to collection
     if (folderIndex === -1) {
@@ -368,6 +483,7 @@ export const mutations = {
     collections[collectionIndex].folders[folderIndex].requests.splice(requestIndex, 1)
   },
 
+<<<<<<< HEAD:store/postwoman.js
   selectRequest(state, { request }) {
     state.selectedRequest = Object.assign({}, request)
   },
@@ -379,5 +495,9 @@ function testValue(myValue) {
   } catch (ex) {
     // Now we know it's a string just leave it as a string value.
     return myValue
+=======
+  selectRequest(state: CollectionState, { request }: { request: any }) {
+    state.selectedRequest = Object.assign({}, request);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:store/postwoman.ts
   }
 }

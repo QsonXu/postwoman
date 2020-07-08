@@ -28,34 +28,61 @@
           <label for="selectCollection">{{ $t("collection") }}</label>
           <span class="select-wrapper">
             <select type="text" id="selectCollection" v-model="requestData.collectionIndex">
+<<<<<<< HEAD
               <option :key="undefined" :value="undefined" hidden disabled selected>{{
                 $t("select_collection")
               }}</option>
               <option
                 v-for="(collection, index) in $store.state.postwoman.collections"
+=======
+              <option
+                :key="undefined"
+                :value="undefined"
+                hidden
+                disabled
+                selected
+              >Select a Collection</option>
+              <option
+                v-for="(collection, index) in $store.state.postwoman
+                  .collections"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
                 :key="index"
                 :value="index"
-              >
-                {{ collection.name }}
-              </option>
+              >{{ collection.name }}</option>
             </select>
           </span>
           <label for="selectFolder">{{ $t("folder") }}</label>
           <span class="select-wrapper">
             <select type="text" id="selectFolder" v-model="requestData.folderIndex">
               <option :key="undefined" :value="undefined">/</option>
+<<<<<<< HEAD
               <option v-for="(folder, index) in folders" :key="index" :value="index">
                 {{ folder.name }}
               </option>
+=======
+              <option
+                v-for="(folder, index) in folders"
+                :key="index"
+                :value="index"
+              >{{ folder.name }}</option>
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
             </select>
           </span>
           <label for="selectRequest">{{ $t("request") }}</label>
           <span class="select-wrapper">
             <select type="text" id="selectRequest" v-model="requestData.requestIndex">
               <option :key="undefined" :value="undefined">/</option>
+<<<<<<< HEAD
               <option v-for="(folder, index) in requests" :key="index" :value="index">
                 {{ folder.name }}
               </option>
+=======
+              <option
+                v-for="(folder, index) in requests"
+                :key="index"
+                :value="index"
+              >{{ folder.name }}</option>
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
             </select>
           </span>
         </li>
@@ -65,39 +92,65 @@
       <div class="flex-wrap">
         <span></span>
         <span>
+<<<<<<< HEAD
           <button class="icon" @click="hideModal">
             {{ $t("cancel") }}
           </button>
           <button class="icon primary" @click="saveRequestAs">
             {{ $t("save") }}
           </button>
+=======
+          <button class="icon" @click="hideModal">Cancel</button>
+          <button class="icon primary" @click="saveRequestAs">Save</button>
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
         </span>
       </div>
     </div>
   </modal>
 </template>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
 export default {
+=======
+<script lang="ts">
+import Vue from "vue";
+import { CollectionFolder as Folder, CollectionRequest as Request } from "~/store/postwoman";
+
+export default Vue.extend({
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   props: {
     show: Boolean,
     editingRequest: Object,
   },
   components: {
+<<<<<<< HEAD
     modal: () => import("~/components/ui/modal"),
+=======
+    modal: () => import("../../components/modal.vue")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
       defaultRequestName: "My Request",
       requestData: {
+<<<<<<< HEAD
         name: undefined,
         collectionIndex: undefined,
         folderIndex: undefined,
         requestIndex: undefined,
       },
     }
+=======
+        name: undefined as string | undefined,
+        collectionIndex: undefined as number | undefined,
+        folderIndex: undefined as number | undefined,
+        requestIndex: undefined as number | undefined
+      }
+    };
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   watch: {
     "requestData.collectionIndex": function resetFolderAndRequestIndex() {
@@ -114,9 +167,16 @@ export default {
     },
   },
   computed: {
+<<<<<<< HEAD
     folders() {
       const userSelectedAnyCollection = this.$data.requestData.collectionIndex !== undefined
       if (!userSelectedAnyCollection) return []
+=======
+    folders(): Folder[] {
+      const userSelectedAnyCollection =
+        this.$data.requestData.collectionIndex !== undefined;
+      if (!userSelectedAnyCollection) return [];
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       const noCollectionAvailable =
         this.$store.state.postwoman.collections[this.$data.requestData.collectionIndex] !==
@@ -125,9 +185,16 @@ export default {
 
       return this.$store.state.postwoman.collections[this.$data.requestData.collectionIndex].folders
     },
+<<<<<<< HEAD
     requests() {
       const userSelectedAnyCollection = this.$data.requestData.collectionIndex !== undefined
       if (!userSelectedAnyCollection) return []
+=======
+    requests(): Request[] {
+      const userSelectedAnyCollection =
+        this.$data.requestData.collectionIndex !== undefined;
+      if (!userSelectedAnyCollection) return [];
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       const userSelectedAnyFolder = this.$data.requestData.folderIndex !== undefined
       if (userSelectedAnyFolder) {
@@ -162,10 +229,15 @@ export default {
     saveRequestAs() {
       const userDidntSpecifyCollection = this.$data.requestData.collectionIndex === undefined
       if (userDidntSpecifyCollection) {
+<<<<<<< HEAD
         this.$toast.error(this.$t("select_collection"), {
           icon: "error",
         })
         return
+=======
+        this.$toast.error("Select a Collection", { icon: () => "error" });
+        return;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       }
 
       const requestUpdated = {
@@ -185,9 +257,17 @@ export default {
       this.syncCollections()
     },
     hideModal() {
+<<<<<<< HEAD
       this.$emit("hide-modal")
       this.$emit("hide-model") // for backward compatibility  // TODO: use fixed event
     },
   },
 }
+=======
+      this.$emit("hide-modal");
+      this.$emit("hide-model"); // for backward compatibility  // TODO: use fixed event
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

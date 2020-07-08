@@ -207,6 +207,7 @@
 
 <style scoped lang="scss"></style>
 
+<<<<<<< HEAD
 <script>
 import firebase from "firebase/app"
 import { fb } from "~/helpers/fb"
@@ -218,6 +219,16 @@ export default {
     swatch: () => import("~/components/settings/swatch"),
     login: () => import("~/components/firebase/login"),
     logout: () => import("~/components/firebase/logout"),
+=======
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  components: {
+    "pw-section": () => import("../components/section.vue"),
+    "pw-toggle": () => import("../components/toggle.vue"),
+    swatch: () => import("../components/settings/swatch.vue")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
@@ -336,14 +347,25 @@ export default {
     },
   },
   methods: {
+<<<<<<< HEAD
     applyTheme({ class: name, color, aceEditor }) {
       this.applySetting("THEME_CLASS", name)
       this.applySetting("THEME_ACE_EDITOR", aceEditor)
       document.querySelector("meta[name=theme-color]").setAttribute("content", color)
       this.applySetting("THEME_TAB_COLOR", color)
       document.documentElement.className = name
+=======
+    applyTheme({ class: name, color, aceEditor }: { class: string, color: string, aceEditor: any }) {
+      this.applySetting("THEME_CLASS", name);
+      this.applySetting("THEME_ACE_EDITOR", aceEditor);
+      (document as any)
+        .querySelector("meta[name=theme-color]")
+        .setAttribute("content", color);
+      this.applySetting("THEME_TAB_COLOR", color);
+      document.documentElement.className = name;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     },
-    setActiveColor(color, vibrant) {
+    setActiveColor(color: string, vibrant: boolean) {
       // By default, the color is vibrant.
       if (vibrant === null) vibrant = true
       document.documentElement.style.setProperty("--ac-color", color)
@@ -356,11 +378,16 @@ export default {
     },
     getActiveColor() {
       // This strips extra spaces and # signs from the strings.
+<<<<<<< HEAD
       const strip = (str) => str.replace(/#/g, "").replace(/ /g, "")
+=======
+      const strip = (str: string) => str.replace(/#/g, "").replace(/ /g, "");
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       return `#${strip(
         window.getComputedStyle(document.documentElement).getPropertyValue("--ac-color")
       ).toUpperCase()}`
     },
+<<<<<<< HEAD
     applySetting(key, value) {
       this.settings[key] = value
       this.$store.commit("postwoman/applySetting", [key, value])
@@ -405,13 +432,23 @@ export default {
         }
       }
     },
+=======
+    applySetting(key: string, value: any) {
+      (this.settings as any)[key] = value;
+      this.$store.commit("postwoman/applySetting", [key, value]);
+    },
+    toggleSetting(key: string) {
+      (this.settings as any)[key] = !(this.settings as any)[key];
+      this.$store.commit("postwoman/applySetting", [key, (this.settings as any)[key]]);
+    }
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   beforeMount() {
     this.settings.THEME_CLASS = document.documentElement.className
     this.settings.THEME_COLOR = this.getActiveColor()
   },
   computed: {
-    proxySettings() {
+    proxySettings(): { url: string, key: string } {
       return {
         url: this.settings.PROXY_URL,
         key: this.settings.PROXY_KEY,
@@ -422,6 +459,11 @@ export default {
     return {
       title: `Settings • ${this.$store.state.name}`,
     }
+<<<<<<< HEAD
   },
 }
+=======
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

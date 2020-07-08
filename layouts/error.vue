@@ -29,9 +29,13 @@
 }
 </style>
 
-<script>
-export default {
-  props: ["error"],
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  props: {
+    error: Object
+  },
 
   methods: {
     reloadApplication() {
@@ -42,9 +46,17 @@ export default {
   head() {
     return {
       bodyAttrs: {
+<<<<<<< HEAD
         class: "sticky-footer",
       },
     }
   },
 }
+=======
+        class: "sticky-footer"
+      }
+    };
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

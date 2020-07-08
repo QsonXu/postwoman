@@ -336,6 +336,7 @@
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import axios from "axios"
 import * as gql from "graphql"
@@ -345,12 +346,21 @@ import AceEditor from "~/components/ui/ace-editor"
 import QueryEditor from "~/components/graphql/queryeditor"
 import { getPlatformSpecialKey } from "~/helpers/platformutils"
 import { sendNetworkRequest } from "~/helpers/network"
+=======
+<script lang="ts">
+import Vue from 'vue';
+import axios from "axios";
+import * as gql from "graphql";
+import textareaAutoHeight from "../directives/textareaAutoHeight";
+import AceEditor from "../components/ace-editor.vue";
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
-export default {
+export default Vue.extend({
   directives: {
     textareaAutoHeight,
   },
   components: {
+<<<<<<< HEAD
     "pw-section": () => import("~/components/layout/section"),
     "gql-field": () => import("~/components/graphql/field"),
     "gql-type": () => import("~/components/graphql/type"),
@@ -369,6 +379,148 @@ export default {
       gqlTypes: [],
       copyButton: '<i class="material-icons">content_copy</i>',
       downloadButton: '<i class="material-icons">save_alt</i>',
+=======
+    "pw-section": () => import("../components/section.vue"),
+    "gql-field": () => import("../components/graphql/field.vue"),
+    "gql-type": () => import("../components/graphql/type.vue"),
+    autocomplete: () => import("../components/autocomplete.vue"),
+    Editor: AceEditor
+  },
+  data() {
+    return {
+      schemaString: "",
+      commonHeaders: [
+        "WWW-Authenticate",
+        "Authorization",
+        "Proxy-Authenticate",
+        "Proxy-Authorization",
+        "Age",
+        "Cache-Control",
+        "Clear-Site-Data",
+        "Expires",
+        "Pragma",
+        "Warning",
+        "Accept-CH",
+        "Accept-CH-Lifetime",
+        "Early-Data",
+        "Content-DPR",
+        "DPR",
+        "Device-Memory",
+        "Save-Data",
+        "Viewport-Width",
+        "Width",
+        "Last-Modified",
+        "ETag",
+        "If-Match",
+        "If-None-Match",
+        "If-Modified-Since",
+        "If-Unmodified-Since",
+        "Vary",
+        "Connection",
+        "Keep-Alive",
+        "Accept",
+        "Accept-Charset",
+        "Accept-Encoding",
+        "Accept-Language",
+        "Expect",
+        "Max-Forwards",
+        "Cookie",
+        "Set-Cookie",
+        "Cookie2",
+        "Set-Cookie2",
+        "Access-Control-Allow-Origin",
+        "Access-Control-Allow-Credentials",
+        "Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods",
+        "Access-Control-Expose-Headers",
+        "Access-Control-Max-Age",
+        "Access-Control-Request-Headers",
+        "Access-Control-Request-Method",
+        "Origin",
+        "Service-Worker-Allowed",
+        "Timing-Allow-Origin",
+        "X-Permitted-Cross-Domain-Policies",
+        "DNT",
+        "Tk",
+        "Content-Disposition",
+        "Content-Length",
+        "Content-Type",
+        "Content-Encoding",
+        "Content-Language",
+        "Content-Location",
+        "Forwarded",
+        "X-Forwarded-For",
+        "X-Forwarded-Host",
+        "X-Forwarded-Proto",
+        "Via",
+        "Location",
+        "From",
+        "Host",
+        "Referer",
+        "Referrer-Policy",
+        "User-Agent",
+        "Allow",
+        "Server",
+        "Accept-Ranges",
+        "Range",
+        "If-Range",
+        "Content-Range",
+        "Cross-Origin-Opener-Policy",
+        "Cross-Origin-Resource-Policy",
+        "Content-Security-Policy",
+        "Content-Security-Policy-Report-Only",
+        "Expect-CT",
+        "Feature-Policy",
+        "Public-Key-Pins",
+        "Public-Key-Pins-Report-Only",
+        "Strict-Transport-Security",
+        "Upgrade-Insecure-Requests",
+        "X-Content-Type-Options",
+        "X-Download-Options",
+        "X-Frame-Options",
+        "X-Powered-By",
+        "X-XSS-Protection",
+        "Last-Event-ID",
+        "NEL",
+        "Ping-From",
+        "Ping-To",
+        "Report-To",
+        "Transfer-Encoding",
+        "TE",
+        "Trailer",
+        "Sec-WebSocket-Key",
+        "Sec-WebSocket-Extensions",
+        "Sec-WebSocket-Accept",
+        "Sec-WebSocket-Protocol",
+        "Sec-WebSocket-Version",
+        "Accept-Push-Policy",
+        "Accept-Signature",
+        "Alt-Svc",
+        "Date",
+        "Large-Allocation",
+        "Link",
+        "Push-Policy",
+        "Retry-After",
+        "Signature",
+        "Signed-Headers",
+        "Server-Timing",
+        "SourceMap",
+        "Upgrade",
+        "X-DNS-Prefetch-Control",
+        "X-Firefox-Spdy",
+        "X-Pingback",
+        "X-Requested-With",
+        "X-Robots-Tag",
+        "X-UA-Compatible"
+      ],
+      queryFields: [] as any[],
+      mutationFields: [] as any[],
+      subscriptionFields: [] as any[],
+      gqlTypes: [] as any[],
+      responseString: "",
+      copyButton: '<i class="material-icons">file_copy</i>',
+      downloadButton: '<i class="material-icons">get_app</i>',
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       doneButton: '<i class="material-icons">done</i>',
       expandResponse: false,
       responseBodyMaxLines: 16,
@@ -383,6 +535,7 @@ export default {
   },
   computed: {
     url: {
+<<<<<<< HEAD
       get() {
         return this.$store.state.gql.url
       },
@@ -432,9 +585,41 @@ export default {
           attribute: "variablesJSONString",
         })
       },
+=======
+      get(): string {
+        return this.$store.state.gql.url;
+      },
+      set(value: string) {
+        this.$store.commit("setGQLState", { value, attribute: "url" });
+      }
     },
-    headerString() {
-      const result = this.headers
+    headers: {
+      get(): ({ key: string, value: string })[] {
+        return this.$store.state.gql.headers;
+      },
+      set(value: ({ key: string, value: string })[]) {
+        this.$store.commit("setGQLState", { value, attribute: "headers" });
+      }
+    },
+    variables: {
+      get(): any[] {
+        return this.$store.state.gql.variables;
+      },
+      set(value: any[]) {
+        this.$store.commit("setGQLState", { value, attribute: "variables" });
+      }
+    },
+    gqlQueryString: {
+      get(): string {
+        return this.$store.state.gql.query;
+      },
+      set(value: string) {
+        this.$store.commit("setGQLState", { value, attribute: "query" });
+      }
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
+    },
+    headerString(): string {
+      const result = (this.headers as Array<{ key: string, value: string }>)
         .filter(({ key }) => !!key)
         .map(({ key, value }) => `${key}: ${value}`)
         .join(",\n")
@@ -448,12 +633,18 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
     getSpecialKey: getPlatformSpecialKey,
     doPrettifyQuery() {
       this.$refs.queryEditor.prettifyQuery()
     },
     handleJumpToType(type) {
       this.$refs.gqlTabs.selectTab(this.$refs.typesTab)
+=======
+    handleJumpToType(type: gql.GraphQLType) {
+      const typesTab = document.getElementById("gqltypes-tab") as HTMLInputElement;
+      typesTab.checked = true;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       const rootTypeName = this.resolveRootType(type).name
 
@@ -464,6 +655,7 @@ export default {
         })
       }
     },
+<<<<<<< HEAD
     resolveRootType(type) {
       let t = type
       while (t.ofType != null) t = t.ofType
@@ -507,6 +699,60 @@ export default {
         icon: "done",
       })
       setTimeout(() => (this.$refs.copyResponseButton.innerHTML = this.copyButton), 1000)
+=======
+    resolveRootType(type: any): any {
+      let t = type;
+      while (t.ofType && t.ofType != null) t = t.ofType;
+      return t;
+    },
+    copySchema() {
+      (this.$refs.copySchemaCode as Element).innerHTML = this.doneButton;
+      const aux = document.createElement("textarea");
+      aux.innerText = this.schemaString;
+      document.body.appendChild(aux);
+      aux.select();
+      document.execCommand("copy");
+      document.body.removeChild(aux);
+      this.$toast.success("Copied to clipboard", {
+        icon: "done" as any
+      });
+      setTimeout(
+        () => ((this.$refs.copySchemaCode as Element).innerHTML = this.copyButton),
+        1000
+      );
+    },
+    copyQuery() {
+      (this.$refs.copyQueryButton as Element).innerHTML = this.doneButton;
+      const aux = document.createElement("textarea");
+      aux.innerText = this.gqlQueryString;
+      document.body.appendChild(aux);
+      aux.select();
+      document.execCommand("copy");
+      document.body.removeChild(aux);
+      this.$toast.success("Copied to clipboard", {
+        icon: "done" as any
+      });
+      setTimeout(
+        () => ((this.$refs.copyQueryButton as Element).innerHTML = this.copyButton),
+        1000
+      );
+    },
+    copyResponse() {
+      (this.$refs.copyResponseButton as Element).innerHTML = this.doneButton;
+      const aux = document.createElement("textarea");
+      aux.innerText = this.responseString;
+      document.body.appendChild(aux);
+      aux.select();
+      document.execCommand("copy");
+      document.body.removeChild(aux);
+      this.$toast.success("Copied to clipboard", {
+        icon: "done" as any
+      });
+      setTimeout(
+        () => ((this.$refs.copyResponseButton as Element).innerHTML = this.copyButton),
+        1000
+      );
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     },
     async runQuery() {
       const startTime = Date.now()
@@ -519,6 +765,7 @@ export default {
       if (this.settings.SCROLL_INTO_ENABLED) this.scrollInto("response")
 
       try {
+<<<<<<< HEAD
         let headers = {}
         this.headers.forEach(({ key, value }) => {
           headers[key] = value
@@ -527,6 +774,30 @@ export default {
         let variables = JSON.parse(this.variableString || "{}")
 
         const gqlQueryString = this.gqlQueryString
+=======
+        let headers: any = {};
+        (this.headers as Array<{ key: string, value: string }>).forEach(header => {
+          headers[header.key] = header.value;
+        });
+
+        let variables: any = {};
+        const gqlQueryString = this.gqlQueryString;
+        this.variables.forEach((variable: any) => {
+          // todo: better variable type validation
+          const intRex = new RegExp(`\$${variable.key}\: Int`);
+          intRex.compile();
+          const floatRex = new RegExp(`\$${variable.key}\: Float`);
+          floatRex.compile();
+
+          if (intRex.test(gqlQueryString)) {
+            variables[variable.key] = parseInt(variable.value);
+          } else if (floatRex.test(gqlQueryString)) {
+            variables[variable.key] = parseFloat(variable.value);
+          } else {
+            variables[variable.key] = variable.value;
+          }
+        });
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
         const reqOptions = {
           method: "post",
@@ -535,6 +806,7 @@ export default {
             ...headers,
             "content-type": "application/json",
           },
+<<<<<<< HEAD
           data: JSON.stringify({ query: gqlQueryString, variables }),
         }
 
@@ -546,14 +818,49 @@ export default {
         this.$toast.info(this.$t("finished_in", { duration }), {
           icon: "done",
         })
+=======
+          data: JSON.stringify({ query: gqlQueryString, variables })
+        };
+
+        const reqConfig = this.$store.state.postwoman.settings.PROXY_ENABLED
+          ? {
+              method: "post",
+              url:
+                this.$store.state.postwoman.settings.PROXY_URL ||
+                `https://postwoman.apollotv.xyz/`,
+              data: reqOptions
+            }
+          : reqOptions;
+
+        const res = await axios(reqConfig as any);
+
+        const data = this.$store.state.postwoman.settings.PROXY_ENABLED
+          ? res.data
+          : res;
+
+        this.responseString = JSON.stringify(data.data, null, 2);
+
+        this.$nuxt.$loading.finish();
+        const duration = Date.now() - startTime;
+        this.$toast.info(`Finished in ${duration}ms`, {
+          icon: "done" as any
+        });
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       } catch (error) {
         this.response = `${error}. ${this.$t("check_console_details")}`
         this.$nuxt.$loading.finish()
 
+<<<<<<< HEAD
         this.$toast.error(`${error} ${this.$t("f12_details")}`, {
           icon: "error",
         })
         console.log("Error", error)
+=======
+        this.$toast.error(error + " (F12 for details)", {
+          icon: "error" as any
+        });
+        console.log("Error", error);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       }
     },
 
@@ -621,10 +928,17 @@ export default {
           query: gql.getIntrospectionQuery(),
         })
 
+<<<<<<< HEAD
         let headers = {}
         this.headers.forEach(({ key, value }) => {
           headers[key] = value
         })
+=======
+        let headers: any = {};
+        (this.headers as Array<{ key: string, value: string }>).forEach(header => {
+          headers[header.key] = header.value;
+        });
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
         const reqOptions = {
           method: "post",
@@ -633,6 +947,7 @@ export default {
             ...headers,
             "content-type": "application/json",
           },
+<<<<<<< HEAD
           data: query,
         }
 
@@ -668,6 +983,105 @@ export default {
           }
         )
         console.log("Error", error)
+=======
+          data: query
+        };
+
+        // console.log(reqOptions);
+
+        const reqConfig = this.$store.state.postwoman.settings.PROXY_ENABLED
+          ? {
+              method: "post",
+              url:
+                this.$store.state.postwoman.settings.PROXY_URL ||
+                `https://postwoman.apollotv.xyz/`,
+              data: reqOptions
+            }
+          : reqOptions;
+
+        const res = await axios(reqConfig as any);
+
+        const data = this.$store.state.postwoman.settings.PROXY_ENABLED
+          ? res.data
+          : res;
+
+        const schema = gql.buildClientSchema(data.data.data);
+        this.schemaString = gql.printSchema(schema, {
+          commentDescriptions: true
+        });
+
+        const queryType = schema.getQueryType();
+
+        if (queryType) {
+          const fields = queryType.getFields();
+          const qFields = [];
+          for (const field in fields) {
+            qFields.push(fields[field]);
+          }
+          this.queryFields = qFields;
+        }
+
+        const mutationType = schema.getMutationType();
+
+        if (mutationType) {
+          const fields = mutationType.getFields();
+          const mFields = [];
+          for (const field in fields) {
+            mFields.push(fields[field]);
+          }
+          this.mutationFields = mFields;
+        }
+
+        const subsType = schema.getSubscriptionType();
+
+        if (subsType) {
+          const fields = subsType.getFields();
+          const sFields = [];
+          for (const field in fields) {
+            sFields.push(fields[field]);
+          }
+          this.subscriptionFields = sFields;
+        }
+
+        const typeMap = schema.getTypeMap();
+        const types = [];
+
+        const queryTypeName = queryType 
+          ? queryType.name
+          : "";
+        const mutationTypeName = mutationType 
+          ? mutationType.name
+          : "";
+        const subscriptionTypeName = subsType 
+          ? subsType.name
+          : "";
+
+        for (const type in typeMap) {
+          if (
+            !typeMap[type].name.startsWith("__") &&
+            ![queryTypeName, mutationTypeName, subscriptionTypeName].includes(
+              typeMap[type].name
+            ) &&
+            typeMap[type] instanceof gql.GraphQLObjectType
+          ) {
+            types.push(typeMap[type]);
+          }
+        }
+        this.gqlTypes = types;
+
+        this.$nuxt.$loading.finish();
+        const duration = Date.now() - startTime;
+        this.$toast.info(`Finished in ${duration}ms`, {
+          icon: "done" as any
+        });
+      } catch (error) {
+        this.$nuxt.$loading.finish();
+        this.schemaString = error + ". Check console for details.";
+        this.$toast.error(error + " (F12 for details)", {
+          icon: "error" as any
+        });
+        console.log("Error", error);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       }
     },
     ToggleExpandResponse() {
@@ -675,6 +1089,7 @@ export default {
       this.responseBodyMaxLines = this.responseBodyMaxLines == Infinity ? 16 : Infinity
     },
     downloadResponse() {
+<<<<<<< HEAD
       const dataToWrite = this.response
       const file = new Blob([dataToWrite], { type: "application/json" })
       const a = document.createElement("a")
@@ -711,16 +1126,39 @@ export default {
         window.URL.revokeObjectURL(url)
         this.$refs.downloadSchema.innerHTML = this.downloadButton
       }, 1000)
+=======
+      const dataToWrite = JSON.stringify(this.schemaString, null, 2);
+      const file = new Blob([dataToWrite], { type: "application/json" });
+      const a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = (this.url + " on " + Date() + ".graphql").replace(
+        /\./g,
+        "[dot]"
+      );
+      document.body.appendChild(a);
+      a.click();
+      (this.$refs.downloadResponse as Element).innerHTML = this.doneButton;
+      this.$toast.success("Download started", {
+        icon: "done" as any
+      });
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        (this.$refs.downloadResponse as Element).innerHTML = this.downloadButton;
+      }, 1000);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     },
-    addRequestHeader(index) {
+    addRequestHeader(index: number) {
       this.$store.commit("addGQLHeader", {
         key: "",
         value: "",
       })
       return false
     },
-    removeRequestHeader(index) {
+    removeRequestHeader(index: number) {
       // .slice() is used so we get a separate array, rather than just a reference
+<<<<<<< HEAD
       const oldHeaders = this.headers.slice()
 
       this.$store.commit("removeGQLHeader", index)
@@ -748,4 +1186,53 @@ export default {
     }
   },
 }
+=======
+      const oldHeaders = this.headers.slice();
+
+      this.$store.commit("removeGQLHeader", index);
+      this.$toast.error("Deleted", {
+        icon: "delete" as any,
+        duration: 4000,
+        action: {
+          text: "Undo",
+          onClick: (e, toastObject) => {
+            this.headers = oldHeaders;
+            toastObject.goAway();
+          }
+        }
+      });
+      // console.log(oldHeaders);
+    },
+    addQueryVariable(index: number) {
+      this.$store.commit("addGQLVariable", {
+        key: "",
+        value: ""
+      });
+      return false;
+    },
+    removeQueryVariable(index: number) {
+      const oldVariables = this.variables.slice();
+
+      this.$store.commit("removeGQLVariable", index);
+      this.$toast.error("Deleted", {
+        icon: "delete" as any,
+        duration: 4000,
+        action: {
+          text: "Undo",
+          onClick: (e, toastObject) => {
+            this.variables = oldVariables;
+            toastObject.goAway();
+          }
+        }
+      });
+      // console.log(oldVariables);
+    },
+    scrollInto(view: any) {
+      (this.$refs[view] as Vue).$el.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

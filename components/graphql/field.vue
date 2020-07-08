@@ -49,10 +49,16 @@
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import typelink from "./typelink"
+=======
+<script lang="ts">
+import Vue from "vue";
+import typelink from "./typelink.vue";
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
-export default {
+export default Vue.extend({
   components: {
     typelink: typelink,
   },
@@ -63,6 +69,7 @@ export default {
   },
 
   computed: {
+<<<<<<< HEAD
     fieldString() {
       const args = (this.gqlField.args || []).reduce(
         (acc, { name, type }, index) =>
@@ -82,4 +89,30 @@ export default {
     },
   },
 }
+=======
+    fieldString(): string {
+      const args = (this.gqlField.args || []).reduce((acc: any, arg: any, index: number) => {
+        return (
+          acc +
+          `${arg.name}: ${arg.type.toString()}${
+            index !== this.gqlField.args.length - 1 ? ", " : ""
+          }`
+        );
+      }, "");
+      const argsString = args.length > 0 ? `(${args})` : "";
+      return `${
+        this.gqlField.name
+      }${argsString}: ${this.gqlField.type.toString()}`;
+    },
+
+    fieldName(): string {
+      return this.gqlField.name;
+    },
+
+    fieldArgs(): string[] {
+      return this.gqlField.args || [];
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

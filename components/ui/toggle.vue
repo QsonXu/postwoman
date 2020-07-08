@@ -79,8 +79,10 @@ label.toggle {
 }
 </style>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   props: {
     on: {
       type: Boolean,
@@ -90,9 +92,17 @@ export default {
 
   methods: {
     toggle() {
+<<<<<<< HEAD:components/ui/toggle.vue
       const containsOnClass = this.$refs.toggle.classList.toggle("on")
       this.$emit("change", containsOnClass)
     },
   },
 }
+=======
+      const containsOnClass = (this.$refs.toggle as Element).classList.toggle("on");
+      this.$emit("change", containsOnClass);
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/toggle.vue
 </script>

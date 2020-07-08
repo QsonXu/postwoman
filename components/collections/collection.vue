@@ -86,6 +86,7 @@ ul li {
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
@@ -97,6 +98,20 @@ export default {
   props: {
     collectionIndex: Number,
     collection: Object,
+=======
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { Collection, CollectionFolder as Folder } from "~/store/postwoman";
+
+export default Vue.extend({
+  components: {
+    folder: () => import("./folder.vue"),
+    request: () => import("./request.vue")
+  },
+  props: {
+    collectionIndex: Number,
+    collection: Object as PropType<Collection>
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
@@ -122,9 +137,17 @@ export default {
       })
       this.syncCollections()
     },
+<<<<<<< HEAD
     editFolder(collectionIndex, folder, folderIndex) {
       this.$emit("edit-folder", { collectionIndex, folder, folderIndex })
     },
   },
 }
+=======
+    editFolder(collectionIndex: number, folder: Folder, folderIndex: number) {
+      this.$emit("edit-folder", { collectionIndex, folder, folderIndex });
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

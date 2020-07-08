@@ -305,15 +305,41 @@ ol {
 }
 </style>
 
+<<<<<<< HEAD:components/layout/history.vue
 <script>
 import { findStatusGroup } from "~/pages/index"
 import { fb } from "~/helpers/fb"
 
 const updateOnLocalStorage = (propertyName, property) =>
   window.localStorage.setItem(propertyName, JSON.stringify(property))
+=======
+<script lang="ts">
+import Vue from "vue";
+import { findStatusGroup } from "../pages/index.vue";
 
-export default {
+const updateOnLocalStorage = (propertyName: string, property: any) =>
+  window.localStorage.setItem(propertyName, JSON.stringify(property));
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
+
+interface HistoryEntry {
+  label: string;
+  status: number;
+  date: string;
+  time: string;
+  method: string;
+  url: string;
+  path: string;
+  usesScripts: boolean;
+  preRequestScript: string;
+  duration: number;
+  star: boolean;
+
+  [x: string]: any
+}
+
+export default Vue.extend({
   components: {
+<<<<<<< HEAD:components/layout/history.vue
     "pw-section": () => import("../layout/section"),
   },
   data() {
@@ -322,6 +348,17 @@ export default {
         fb.currentUser !== null
           ? fb.currentHistory
           : JSON.parse(window.localStorage.getItem("history")) || [],
+=======
+    "pw-section": () => import("./section.vue"),
+    VirtualList: () => import("vue-virtual-scroll-list")
+  },
+  data() {
+    const localStorageHistory = JSON.parse(
+      window.localStorage.getItem("history") as string
+    );
+    return {
+      history: (localStorageHistory || []) as HistoryEntry[],
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
       filterText: "",
       showFilter: false,
       isClearingHistory: false,
@@ -330,6 +367,7 @@ export default {
       reverse_sort_status_code: false,
       reverse_sort_url: false,
       reverse_sort_path: false,
+<<<<<<< HEAD:components/layout/history.vue
       showMore: false,
     }
   },
@@ -367,20 +405,59 @@ export default {
     },
     findEntryStatus(entry) {
       const foundStatusGroup = findStatusGroup(entry.status)
+=======
+      reverse_sort_duration: false,
+      showMore: false
+    };
+  },
+  computed: {
+    filteredHistory(): HistoryEntry[] {
+      return this.history.filter(entry => {
+        const filterText = this.filterText.toLowerCase();
+        return Object.keys(entry).some(key => {
+          let value = entry[key];
+          value = typeof value !== "string" ? value.toString() : value;
+          return value.toLowerCase().includes(filterText);
+        });
+      });
+    }
+  },
+  methods: {
+    clearHistory() {
+      this.history = [];
+      this.filterText = "";
+      this.disableHistoryClearing();
+      updateOnLocalStorage("history", this.history);
+      this.$toast.error("History Deleted", {
+        icon: "delete" as any
+      });
+    },
+    useHistory(entry: HistoryEntry) {
+      this.$emit("useHistory", entry);
+    },
+    findEntryStatus(entry: HistoryEntry) {
+      const foundStatusGroup = findStatusGroup(entry.status);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
       return (
         foundStatusGroup || {
           className: "",
         }
       )
     },
+<<<<<<< HEAD:components/layout/history.vue
     deleteHistory(entry) {
       if (fb.currentUser !== null) {
         fb.deleteHistory(entry)
       }
       this.history.splice(this.history.indexOf(entry), 1)
+=======
+    deleteHistory(entry: HistoryEntry) {
+      this.history.splice(this.history.indexOf(entry), 1);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
       if (this.history.length === 0) {
         this.filterText = ""
       }
+<<<<<<< HEAD:components/layout/history.vue
       updateOnLocalStorage("history", this.history)
       this.$toast.error(this.$t("deleted"), {
         icon: "delete",
@@ -389,6 +466,16 @@ export default {
     addEntry(entry) {
       this.history.push(entry)
       updateOnLocalStorage("history", this.history)
+=======
+      updateOnLocalStorage("history", this.history);
+      this.$toast.error("Deleted", {
+        icon: "delete" as any
+      });
+    },
+    addEntry(entry: HistoryEntry) {
+      this.history.push(entry);
+      updateOnLocalStorage("history", this.history);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
     },
     enableHistoryClearing() {
       if (!this.history || !this.history.length) return
@@ -400,6 +487,7 @@ export default {
     sort_by_time() {
       let byDate = this.history.slice(0)
       byDate.sort((a, b) => {
+<<<<<<< HEAD:components/layout/history.vue
         let date_a = a.date.split("/")
         let date_b = b.date.split("/")
         let time_a = a.time.split(":")
@@ -411,6 +499,33 @@ export default {
       })
       this.history = byDate
       this.reverse_sort_time = !this.reverse_sort_time
+=======
+        let date_a = a.date.split("/");
+        let date_b = b.date.split("/");
+        let time_a = a.time.split(":");
+        let time_b = b.time.split(":");
+        let final_a = new Date(
+          parseInt(date_a[2]),
+          parseInt(date_a[1]),
+          parseInt(date_a[0]),
+          parseInt(time_a[0]),
+          parseInt(time_a[1]),
+          parseInt(time_a[2])
+        );
+        let final_b = new Date(
+          parseInt(date_b[2]),
+          parseInt(date_b[1]),
+          parseInt(date_b[0]),
+          parseInt(time_b[0]),
+          parseInt(time_b[1]),
+          parseInt(time_b[2])
+        );
+        if (this.reverse_sort_time) return (final_b as any) - (final_a as any);
+        else return (final_a as any) - (final_b as any);
+      });
+      this.history = byDate;
+      this.reverse_sort_time = !this.reverse_sort_time;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
     },
     sort_by_status_code() {
       let byCode = this.history.slice(0)
@@ -461,6 +576,7 @@ export default {
     toggleCollapse() {
       this.showMore = !this.showMore
     },
+<<<<<<< HEAD:components/layout/history.vue
     toggleStar(entry) {
       if (fb.currentUser !== null) {
         fb.toggleStar(entry, !entry.star)
@@ -470,4 +586,12 @@ export default {
     },
   },
 }
+=======
+    toggleStar(index: number) {
+      this.history[index]["star"] = !this.history[index]["star"];
+      updateOnLocalStorage("history", this.history);
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/history.vue
 </script>

@@ -42,15 +42,26 @@
   </modal>
 </template>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
 export default {
+=======
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   props: {
     show: Boolean,
   },
   components: {
+<<<<<<< HEAD
     modal: () => import("~/components/ui/modal"),
+=======
+    modal: () => import("../../components/modal.vue")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
@@ -77,9 +88,16 @@ export default {
       this.syncCollections()
     },
     hideModal() {
+<<<<<<< HEAD
       this.$emit("hide-modal")
       this.$data.name = undefined
     },
   },
 }
+=======
+      this.$emit("hide-modal");
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

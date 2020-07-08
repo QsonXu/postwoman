@@ -148,6 +148,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
+<<<<<<< HEAD
   buildModules: [
     // See https://goo.gl/OOhYW5
     "@nuxtjs/pwa",
@@ -158,6 +159,9 @@ export default {
     // Doc: https://github.com/nuxt-community/gtm-module
     "@nuxtjs/gtm",
   ],
+=======
+  buildModules: ["@nuxt/typescript-build"],
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   /*
    ** Nuxt.js modules
    */
@@ -230,25 +234,41 @@ export default {
         code: "en",
         name: "English",
         iso: "en-US",
+<<<<<<< HEAD
         file: "en-US.json",
+=======
+        file: "en-US.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "es",
         name: "Español",
         iso: "es-ES",
+<<<<<<< HEAD
         file: "es-ES.json",
+=======
+        file: "es-ES.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "fr",
         name: "Français",
         iso: "fr-FR",
+<<<<<<< HEAD
         file: "fr-FR.json",
+=======
+        file: "fr-FR.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "fa",
         name: "Farsi",
         iso: "fa-IR",
+<<<<<<< HEAD
         file: "fa-IR.json",
+=======
+        file: "fa-IR.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "pt",
@@ -260,12 +280,17 @@ export default {
         code: "pt-br",
         name: "Português Brasileiro",
         iso: "pt-BR",
+<<<<<<< HEAD
         file: "pt-BR.json",
+=======
+        file: "pt-BR.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "cn",
         name: "简体中文",
         iso: "zh-CN",
+<<<<<<< HEAD
         file: "zh-CN.json",
       },
       {
@@ -273,29 +298,45 @@ export default {
         name: "繁體中文",
         iso: "zh-TW",
         file: "zh-TW.json",
+=======
+        file: "zh-CN.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "id",
         name: "Bahasa Indonesia",
         iso: "id-ID",
+<<<<<<< HEAD
         file: "id-ID.json",
+=======
+        file: "id-ID.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "tr",
         name: "Türkçe",
         iso: "tr-TR",
+<<<<<<< HEAD
         file: "tr-TR.json",
+=======
+        file: "tr-TR.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "de",
         name: "Deutsch",
         iso: "de-DE",
+<<<<<<< HEAD
         file: "de-DE.json",
+=======
+        file: "de-DE.ts"
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       },
       {
         code: "ja",
         name: "日本語",
         iso: "ja-JP",
+<<<<<<< HEAD
         file: "ja-JP.json",
       },
       {
@@ -304,6 +345,10 @@ export default {
         iso: "ko-KR",
         file: "ko-KR.json",
       },
+=======
+        file: "ja-JP.ts"
+      }
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     ],
     defaultLocale: "en",
     vueI18n: {

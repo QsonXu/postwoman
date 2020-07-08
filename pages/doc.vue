@@ -302,22 +302,41 @@
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import AceEditor from "~/components/ui/ace-editor"
+=======
+<script lang="ts">
+import Vue from 'vue';
+import AceEditor from "../components/ace-editor.vue";
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
-export default {
+export default Vue.extend({
   components: {
+<<<<<<< HEAD
     "pw-section": () => import("~/components/layout/section"),
     Editor: AceEditor,
+=======
+    "pw-section": () => import("../components/section.vue"),
+    Editor: AceEditor
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
+<<<<<<< HEAD
       collectionJSON: "[]",
       items: [],
     }
+=======
+      rawInput: false,
+      collectionJSON: ("[]" as (string | ArrayBuffer | null)),
+      items: []
+    };
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   methods: {
     uploadCollection() {
+<<<<<<< HEAD
       this.rawInput = true
       let file = this.$refs.collectionUpload.files[0]
       if (file !== undefined && file !== null) {
@@ -333,11 +352,31 @@ export default {
         this.$toast.error(this.$t("choose_file"), {
           icon: "attach_file",
         })
+=======
+      this.rawInput = true;
+      const el = this.$refs.collectionUpload as HTMLInputElement;
+      let file = (el.files) ? el.files[0] : null;
+
+      if (file !== undefined && file !== null) {
+        let reader = new FileReader();
+        reader.onload = e => {
+          this.collectionJSON = e.target ? e.target.result : null;
+        };
+        reader.readAsText(file);
+        this.$toast.info("File imported", {
+          icon: "attach_file" as any
+        });
+      } else {
+        this.$toast.error("Choose a file", {
+          icon: "attach_file" as any
+        });
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       }
     },
 
     getDoc() {
       try {
+<<<<<<< HEAD
         this.items = JSON.parse(this.collectionJSON)
         this.$toast.clear()
         this.$toast.info(this.$t("docs_generated"), {
@@ -347,6 +386,16 @@ export default {
         this.$toast.error(e, {
           icon: "code",
         })
+=======
+        this.items = JSON.parse(this.collectionJSON as string);
+        this.$toast.info("Documentation generated", {
+          icon: "book" as any
+        });
+      } catch (e) {
+        this.$toast.error(e, {
+          icon: "code" as any
+        });
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
       }
     },
   },
@@ -354,6 +403,11 @@ export default {
     return {
       title: `Documentation • ${this.$store.state.name}`,
     }
+<<<<<<< HEAD
   },
 }
+=======
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

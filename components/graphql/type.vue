@@ -30,15 +30,27 @@
 }
 </style>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   components: {
+<<<<<<< HEAD
     "gql-field": () => import("./field"),
+=======
+    "gql-field": () => import("./field.vue")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
 
   props: {
     gqlType: {},
+<<<<<<< HEAD
     jumpTypeCallback: Function,
   },
 }
+=======
+    jumpTypeCallback: Function
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

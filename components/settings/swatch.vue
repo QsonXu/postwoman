@@ -40,8 +40,10 @@
 }
 </style>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   props: {
     color: {
       type: String,
@@ -52,8 +54,15 @@ export default {
     },
     active: {
       type: Boolean,
+<<<<<<< HEAD
       default: false,
     },
   },
 }
+=======
+      default: false
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

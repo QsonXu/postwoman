@@ -101,13 +101,21 @@ ul {
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import collection from "./collection"
 import { fb } from "~/helpers/fb"
+=======
+<script lang="ts">
+import Vue from "vue";
+import collection from "./collection.vue";
+import { Collection } from "../../store/postwoman";
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
-export default {
+export default Vue.extend({
   components: {
     collection,
+<<<<<<< HEAD
     "pw-section": () => import("../layout/section"),
     addCollection: () => import("./addCollection"),
     addFolder: () => import("./addFolder"),
@@ -115,6 +123,15 @@ export default {
     editFolder: () => import("./editFolder"),
     editRequest: () => import("./editRequest"),
     importExportCollections: () => import("./importExportCollections"),
+=======
+    addCollection: () => import("./addCollection.vue"),
+    addFolder: () => import("./addFolder.vue"),
+    editCollection: () => import("./editCollection.vue"),
+    editFolder: () => import("./editFolder.vue"),
+    editRequest: () => import("./editRequest.vue"),
+    importExportCollections: () => import("./importExportCollections.vue"),
+    VirtualList: () => import("vue-virtual-scroll-list")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
@@ -124,6 +141,7 @@ export default {
       showModalAddFolder: false,
       showModalEditFolder: false,
       showModalEditRequest: false,
+<<<<<<< HEAD
       editingCollection: undefined,
       editingCollectionIndex: undefined,
       editingFolder: undefined,
@@ -145,36 +163,76 @@ export default {
         e.preventDefault()
         this.showModalAdd = this.showModalEdit = this.showModalImportExport = this.showModalAddFolder = this.showModalEditFolder = this.showModalEditRequest = false
       }
+=======
+      editingCollection: undefined as Collection | undefined,
+      editingCollectionIndex: undefined as number | undefined,
+      editingFolder: undefined as any | undefined,
+      editingFolderIndex: undefined as number | undefined,
+      editingRequest: undefined as any | undefined,
+      editingRequestIndex: undefined as number | undefined
+    };
+  },
+  computed: {
+    collections(): Collection[] {
+      return this.$store.state.postwoman.collections;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     }
     document.addEventListener("keydown", this._keyListener.bind(this))
   },
   methods: {
+<<<<<<< HEAD
     displayModalAdd(shouldDisplay) {
       this.showModalAdd = shouldDisplay
     },
     displayModalEdit(shouldDisplay) {
       this.showModalEdit = shouldDisplay
+=======
+    displayModalAdd(shouldDisplay: boolean) {
+      this.showModalAdd = shouldDisplay;
+    },
+    displayModalEdit(shouldDisplay: boolean) {
+      this.showModalEdit = shouldDisplay;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       if (!shouldDisplay) this.resetSelectedData()
     },
+<<<<<<< HEAD
     displayModalImportExport(shouldDisplay) {
       this.showModalImportExport = shouldDisplay
     },
     displayModalAddFolder(shouldDisplay) {
       this.showModalAddFolder = shouldDisplay
+=======
+    displayModalImportExport(shouldDisplay: boolean) {
+      this.showModalImportExport = shouldDisplay;
+    },
+    displayModalAddFolder(shouldDisplay: boolean) {
+      this.showModalAddFolder = shouldDisplay;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       if (!shouldDisplay) this.resetSelectedData()
     },
+<<<<<<< HEAD
     displayModalEditFolder(shouldDisplay) {
       this.showModalEditFolder = shouldDisplay
+=======
+    displayModalEditFolder(shouldDisplay: boolean) {
+      this.showModalEditFolder = shouldDisplay;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       if (!shouldDisplay) this.resetSelectedData()
     },
+<<<<<<< HEAD
     displayModalEditRequest(shouldDisplay) {
       this.showModalEditRequest = shouldDisplay
+=======
+    displayModalEditRequest(shouldDisplay: boolean) {
+      this.showModalEditRequest = shouldDisplay;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 
       if (!shouldDisplay) this.resetSelectedData()
     },
+<<<<<<< HEAD
     editCollection(collection, collectionIndex) {
       this.$data.editingCollection = collection
       this.$data.editingCollectionIndex = collectionIndex
@@ -225,4 +283,42 @@ export default {
     document.removeEventListener("keydown", this._keyListener)
   },
 }
+=======
+    editCollection(collection: Collection, collectionIndex: number) {
+      this.$data.editingCollection = collection;
+      this.$data.editingCollectionIndex = collectionIndex;
+      this.displayModalEdit(true);
+    },
+    addFolder(collection: Collection, collectionIndex: number) {
+      this.$data.editingCollection = collection;
+      this.$data.editingCollectionIndex = collectionIndex;
+      this.displayModalAddFolder(true);
+    },
+    editFolder(payload: { collectionIndex: number, folder: any, folderIndex: number }) {
+      const { collectionIndex, folder, folderIndex } = payload;
+      this.$data.editingCollection = collection;
+      this.$data.editingCollectionIndex = collectionIndex;
+      this.$data.editingFolder = folder;
+      this.$data.editingFolderIndex = folderIndex;
+      this.displayModalEditFolder(true);
+    },
+    editRequest(payload: { request: any, collectionIndex: number, folderIndex: number, requestIndex: number }) {
+      const { request, collectionIndex, folderIndex, requestIndex } = payload;
+      this.$data.editingCollectionIndex = collectionIndex;
+      this.$data.editingFolderIndex = folderIndex;
+      this.$data.editingRequest = request;
+      this.$data.editingRequestIndex = requestIndex;
+      this.displayModalEditRequest(true);
+    },
+    resetSelectedData() {
+      this.$data.editingCollection = undefined;
+      this.$data.editingCollectionIndex = undefined;
+      this.$data.editingFolder = undefined;
+      this.$data.editingFolderIndex = undefined;
+      this.$data.editingRequest = undefined;
+      this.$data.editingRequestIndex = undefined;
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

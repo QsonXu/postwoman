@@ -41,12 +41,20 @@ ul li {
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
 export default {
+=======
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { CollectionRequest as Request } from "~/store/postwoman";
+
+export default Vue.extend({
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   props: {
-    request: Object,
+    request: Object as PropType<Request>,
     collectionIndex: Number,
     folderIndex: Number,
     requestIndex: Number,
@@ -67,10 +75,18 @@ export default {
       this.$store.commit("postwoman/removeRequest", {
         collectionIndex: this.collectionIndex,
         folderIndex: this.folderIndex,
+<<<<<<< HEAD
         requestIndex: this.requestIndex,
       })
       this.syncCollections()
     },
   },
 }
+=======
+        requestIndex: this.requestIndex
+      });
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

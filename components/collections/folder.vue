@@ -69,17 +69,29 @@ ul li {
 }
 </style>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
 export default {
+=======
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { CollectionFolder as Folder, CollectionRequest as Request } from "~/store/postwoman";
+
+export default Vue.extend({
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   props: {
-    folder: Object,
+    folder: Object as PropType<Folder>,
     collectionIndex: Number,
     folderIndex: Number,
   },
   components: {
+<<<<<<< HEAD
     request: () => import("./request"),
+=======
+    request: () => import("./request.vue")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
@@ -97,8 +109,13 @@ export default {
     toggleShowChildren() {
       this.showChildren = !this.showChildren
     },
+<<<<<<< HEAD
     selectRequest(request) {
       this.$store.commit("postwoman/selectRequest", { request })
+=======
+    selectRequest(request: Request) {
+      this.$store.commit("postwoman/selectRequest", { request });
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     },
     removeFolder() {
       if (!confirm("Are you sure you want to remove this folder?")) return
@@ -109,8 +126,15 @@ export default {
       this.syncCollections()
     },
     editFolder() {
+<<<<<<< HEAD
       this.$emit("edit-folder")
     },
   },
 }
+=======
+      this.$emit("edit-folder");
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

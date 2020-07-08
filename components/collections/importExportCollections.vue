@@ -63,18 +63,24 @@
       <div class="flex-wrap">
         <span></span>
         <span>
+<<<<<<< HEAD
           <button class="icon" @click="hideModal">
             {{ $t("cancel") }}
           </button>
           <button class="icon primary" @click="exportJSON" v-tooltip="$t('download_file')">
             {{ $t("export") }}
           </button>
+=======
+          <button class="icon" @click="hideModal">Cancel</button>
+          <button class="icon primary" @click="exportJSON" v-tooltip="'Download file'">Export</button>
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
         </span>
       </div>
     </div>
   </modal>
 </template>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
@@ -84,22 +90,38 @@ export default {
       fb,
     }
   },
+=======
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   props: {
     show: Boolean,
   },
   components: {
+<<<<<<< HEAD
     modal: () => import("~/components/ui/modal"),
   },
   computed: {
     collectionJson() {
       return JSON.stringify(this.$store.state.postwoman.collections, null, 2)
     },
+=======
+    modal: () => import("../../components/modal.vue")
+  },
+  computed: {
+    collectionJson(): string {
+      return JSON.stringify(this.$store.state.postwoman.collections, null, 2);
+    }
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   methods: {
     hideModal() {
       this.$emit("hide-modal")
     },
     openDialogChooseFileToReplaceWith() {
+<<<<<<< HEAD
       this.$refs.inputChooseFileToReplaceWith.click()
     },
     openDialogChooseFileToImportFrom() {
@@ -146,11 +168,52 @@ export default {
         this.syncToFBCollections()
       }
       reader.readAsText(this.$refs.inputChooseFileToImportFrom.files[0])
+=======
+      (this.$refs.inputChooseFileToReplaceWith as HTMLInputElement).click();
+    },
+    openDialogChooseFileToImportFrom() {
+      (this.$refs.inputChooseFileToImportFrom as HTMLInputElement).click();
+    },
+    replaceWithJSON() {
+      let reader = new FileReader();
+      reader.onload = event => {
+        if (event) {
+          let content = reader.result;
+          if (content) {
+            let collections = JSON.parse(content as string);
+            this.$store.commit("postwoman/replaceCollections", collections);
+          }
+        }
+      };
+      const files = (this.$refs!
+        .inputChooseFileToReplaceWith as HTMLInputElement).files;
+      if (files) {
+        reader.readAsText(files[0]);
+      }
+    },
+    importFromJSON() {
+      let reader = new FileReader();
+      reader.onload = event => {
+        if (event) {
+          let content = reader.result;
+          if (content) {
+            let collections = JSON.parse(content as string);
+            this.$store.commit("postwoman/importCollections", collections);
+          }
+        }
+      };
+      const files = (this.$refs!
+        .inputChooseFileToReplaceWith as HTMLInputElement).files;
+      if (files) {
+        reader.readAsText(files[0]);
+      }
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
     },
     exportJSON() {
       let text = this.collectionJson
       text = text.replace(/\n/g, "\r\n")
       let blob = new Blob([text], {
+<<<<<<< HEAD
         type: "text/json",
       })
       let anchor = document.createElement("a")
@@ -292,4 +355,19 @@ export default {
     },
   },
 }
+=======
+        type: "text/json"
+      });
+      let anchor = document.createElement("a");
+      anchor.download = "postwoman-collection.json";
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.target = "_blank";
+      anchor.style.display = "none";
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>

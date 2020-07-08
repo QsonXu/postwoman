@@ -1,6 +1,7 @@
 const redirectUri = `${window.location.origin}/`
 
 // GENERAL HELPER FUNCTIONS
+<<<<<<< HEAD:assets/js/oauth.js
 
 /**
  * Makes a POST request and parse the response as JSON
@@ -14,6 +15,22 @@ const sendPostRequest = async (url, params) => {
   const body = Object.keys(params)
     .map((key) => `${key}=${params[key]}`)
     .join("&")
+=======
+// Make a POST request and parse the response as JSON
+const sendPostRequest = async (
+  url: string,
+  params: {
+    grant_type: string;
+    code: string;
+    client_id: string;
+    redirect_uri: string;
+    code_verifier: string;
+  }
+) => {
+  let body = Object.entries(params)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
   const options = {
     method: "post",
     headers: {
@@ -29,6 +46,7 @@ const sendPostRequest = async (url, params) => {
     console.error("Request failed", err)
     throw err
   }
+<<<<<<< HEAD:assets/js/oauth.js
 }
 
 /**
@@ -54,6 +72,22 @@ const parseQueryString = (searchQuery) => {
  */
 
 const getTokenConfiguration = async (endpoint) => {
+=======
+};
+// Parse a query string into an object
+const parseQueryString = (queryString: string) => {
+  if (queryString === "") {
+    return {};
+  }
+  let segments = queryString.split("&").map(s => s.split("="));
+  let queries: { [key: string]: string } = {};
+  segments.forEach(s => (queries[s[0]] = s[1]));
+  return queries;
+};
+
+// Get OAuth configuration from OpenID Discovery endpoint
+const getTokenConfiguration = async (endpoint: string) => {
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
   const options = {
     method: "GET",
     headers: {
@@ -79,6 +113,7 @@ const getTokenConfiguration = async (endpoint) => {
  */
 
 const generateRandomString = () => {
+<<<<<<< HEAD:assets/js/oauth.js
   const array = new Uint32Array(28)
   window.crypto.getRandomValues(array)
   return Array.from(array, (dec) => `0${dec.toString(16)}`.substr(-2)).join("")
@@ -106,12 +141,30 @@ const sha256 = (plain) => {
 const base64urlencode = (
   str // Converts the ArrayBuffer to string using Uint8 array to convert to what btoa accepts.
 ) =>
+=======
+  const array = new Uint32Array(28);
+  window.crypto.getRandomValues(array);
+  return Array.from(array, dec => `0${dec.toString(16)}`.substr(-2)).join("");
+};
+// Calculate the SHA256 hash of the input text.
+// Returns a promise that resolves to an ArrayBuffer
+const sha256 = (plain: string) => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(plain);
+  return window.crypto.subtle.digest("SHA-256", data);
+};
+// Base64-urlencodes the input string
+const base64urlencode = (
+  str: ArrayBuffer // Convert the ArrayBuffer to string using Uint8 array to conver to what btoa accepts.
+) => {
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
   // btoa accepts chars only within ascii 0-255 and base64 encodes them.
   // Then convert the base64 encoded to base64url encoded
   //   (replace + with -, replace / with _, trim trailing =)
-  btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+  return btoa(String.fromCharCode.apply(null, [...new Uint8Array(str)]))
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
+<<<<<<< HEAD:assets/js/oauth.js
     .replace(/=+$/, "")
 
 /**
@@ -126,6 +179,18 @@ const pkceChallengeFromVerifier = async (v) => {
   return base64urlencode(hashed)
 }
 
+=======
+    .replace(/=+$/, "");
+};
+
+// Return the base64-urlencoded sha256 hash for the PKCE challenge
+const pkceChallengeFromVerifier = async (v: string) => {
+  let hashed = await sha256(v);
+  return base64urlencode(hashed);
+};
+
+//////////////////////////////////////////////////////////////////////
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
 // OAUTH REQUEST
 
 /**
@@ -141,7 +206,18 @@ const tokenRequest = async ({
   authUrl,
   accessTokenUrl,
   clientId,
+<<<<<<< HEAD:assets/js/oauth.js
   scope,
+=======
+  scope
+}: {
+  oidcDiscoveryUrl: string;
+  grantType: string;
+  authUrl: string;
+  accessTokenUrl: string;
+  clientId: string;
+  scope: string;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
 }) => {
   // Check oauth configuration
   if (oidcDiscoveryUrl !== "") {
@@ -176,8 +252,13 @@ const tokenRequest = async ({
     )}&code_challenge_method=S256`
 
   // Redirect to the authorization server
+<<<<<<< HEAD:assets/js/oauth.js
   window.location = buildUrl()
 }
+=======
+  window.location.href = buildUrl();
+};
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
 
 // OAUTH REDIRECT HANDLING
 
@@ -203,6 +284,7 @@ const oauthRedirect = async () => {
     } else {
       try {
         // Exchange the authorization code for an access token
+<<<<<<< HEAD:assets/js/oauth.js
         tokenResponse = await sendPostRequest(localStorage.getItem("token_endpoint"), {
           grant_type: "authorization_code",
           code: q.code,
@@ -212,6 +294,26 @@ const oauthRedirect = async () => {
         })
       } catch (err) {
         console.log(`${error.error}\n\n${error.error_description}`)
+=======
+        const tokenEndpoint = localStorage.getItem("token_endpoint");
+        const clientId = localStorage.getItem("client_id");
+        const codeVerifier = localStorage.getItem("pkce_code_verifier");
+        if (
+          tokenEndpoint === null ||
+          clientId === null ||
+          codeVerifier === null
+        )
+          return;
+        tokenResponse = await sendPostRequest(tokenEndpoint, {
+          grant_type: "authorization_code",
+          code: q.code,
+          client_id: clientId,
+          redirect_uri: redirectUri,
+          code_verifier: codeVerifier
+        });
+      } catch (err) {
+        console.log(`${err.error}\n\n${err.error_description}`);
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:assets/js/oauth.ts
       }
     }
     // Clean these up since we don't need them anymore

@@ -75,14 +75,22 @@
 }
 </style>
 
+<<<<<<< HEAD:components/ui/autocomplete.vue
 <script>
 const KEY_TAB = 9
 const KEY_ESC = 27
+=======
+<script lang="ts">
+import Vue from "vue";
+
+const KEY_TAB = 9;
+const KEY_ESC = 27;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/autocomplete.vue
 
 const KEY_ARROW_UP = 38
 const KEY_ARROW_DOWN = 40
 
-export default {
+export default Vue.extend({
   props: {
     spellcheck: {
       type: Boolean,
@@ -110,8 +118,13 @@ export default {
 
   watch: {
     text() {
+<<<<<<< HEAD:components/ui/autocomplete.vue
       this.$emit("input", this.text)
     },
+=======
+      (this.$emit as any)("input", this.text);
+    }
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/autocomplete.vue
   },
 
   data() {
@@ -125,7 +138,7 @@ export default {
   },
 
   methods: {
-    updateSuggestions(event) {
+    updateSuggestions(event: InputEvent) {
       // Hide suggestions if ESC pressed.
       if (event.which && event.which === KEY_ESC) {
         event.preventDefault()
@@ -136,6 +149,7 @@ export default {
 
       // As suggestions is a reactive property, this implicitly
       // causes suggestions to update.
+<<<<<<< HEAD:components/ui/autocomplete.vue
       this.selectionStart = this.$refs.acInput.selectionStart
       this.suggestionsOffsetLeft = 12 * this.selectionStart
       this.suggestionsVisible = true
@@ -144,13 +158,23 @@ export default {
     forceSuggestion(text) {
       let input = this.text.substring(0, this.selectionStart)
       this.text = input + text
+=======
+      this.selectionStart = (this.$refs.acInput as HTMLInputElement).selectionStart as number;
+      this.suggestionsOffsetLeft = 12 * this.selectionStart;
+      this.suggestionsVisible = true;
+    },
+
+    forceSuggestion(text: string) {
+      let input = this.text.substring(0, this.selectionStart);
+      this.text = input + text;
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/autocomplete.vue
 
       this.selectionStart = this.text.length
       this.suggestionsVisible = true
       this.currentSuggestionIndex = -1
     },
 
-    handleKeystroke(event) {
+    handleKeystroke(event: InputEvent) {
       switch (event.which) {
         case KEY_ARROW_UP:
           event.preventDefault()
@@ -189,12 +213,21 @@ export default {
      *
      * @returns {default.props.source|{type, required}}
      */
+<<<<<<< HEAD:components/ui/autocomplete.vue
     suggestions() {
       let input = this.text.substring(0, this.selectionStart)
 
       return (
         this.source
           .filter((entry) => {
+=======
+    suggestions(): string[] {
+      let input = this.text.substring(0, this.selectionStart);
+
+      return (
+        (this.source as string[])
+          .filter(entry => {
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/autocomplete.vue
             return (
               entry.toLowerCase().startsWith(input.toLowerCase()) &&
               input.toLowerCase() !== entry.toLowerCase()
@@ -210,8 +243,15 @@ export default {
 
   mounted() {
     this.updateSuggestions({
+<<<<<<< HEAD:components/ui/autocomplete.vue
       target: this.$refs.acInput,
     })
   },
 }
+=======
+      target: this.$refs.acInput
+    } as any);
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e:components/autocomplete.vue
 </script>

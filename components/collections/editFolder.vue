@@ -25,31 +25,52 @@
       <div class="flex-wrap">
         <span></span>
         <span>
+<<<<<<< HEAD
           <button class="icon" @click="hideModal">
             {{ $t("cancel") }}
           </button>
           <button class="icon primary" @click="editFolder">
             {{ $t("save") }}
           </button>
+=======
+          <button class="icon" @click="hideModal">Cancel</button>
+          <button class="icon primary" @click="editFolder">Save</button>
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
         </span>
       </div>
     </div>
   </modal>
 </template>
 
+<<<<<<< HEAD
 <script>
 import { fb } from "~/helpers/fb"
 
 export default {
+=======
+<script lang="ts">
+import Vue, { PropType } from "vue";
+import { Collection, CollectionFolder as Folder } from "~/store/postwoman";
+
+export default Vue.extend({
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   props: {
     show: Boolean,
-    collection: Object,
+    collection: Object as PropType<Collection>,
     collectionIndex: Number,
+<<<<<<< HEAD
     folder: Object,
     folderIndex: Number,
   },
   components: {
     modal: () => import("~/components/ui/modal"),
+=======
+    folder: Object as PropType<Folder>,
+    folderIndex: Number
+  },
+  components: {
+    modal: () => import("../../components/modal.vue")
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
   },
   data() {
     return {
@@ -74,8 +95,15 @@ export default {
       this.syncCollections()
     },
     hideModal() {
+<<<<<<< HEAD
       this.$emit("hide-modal")
     },
   },
 }
+=======
+      this.$emit("hide-modal");
+    }
+  }
+});
+>>>>>>> 4a7f7851c98d310eebb95cbad4e9d1a4ab31a86e
 </script>
